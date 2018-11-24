@@ -103,6 +103,7 @@ public class SensoresFragment extends Fragment implements SensorEventListener {
             /*
 
             hjjj*/
+            /*dadadasdasd*/
             mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
         }
     }
