@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import co.quindio.sena.tutorialwebservice.R;
 import co.quindio.sena.tutorialwebservice.TemperaturaActivity;
@@ -99,6 +100,9 @@ public class SensoresFragment extends Fragment implements SensorEventListener {
     public void onResume() {
         super.onResume();
         if (isSensorPresent) {
+            /*
+
+            hjjj*/
             mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
         }
     }
