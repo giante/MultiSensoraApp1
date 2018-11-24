@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import co.quindio.sena.tutorialwebservice.R;
 import co.quindio.sena.tutorialwebservice.TemperaturaActivity;
@@ -28,7 +29,7 @@ import co.quindio.sena.tutorialwebservice.TemperaturaActivity;
  * Use the {@link SensoresFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SensoresFragment extends Fragment implements SensorEventListener {
+public class SensoresFragment extends Fragment implements View.OnClickListener {
     /*
     TODO: Rename parameter arguments, choose names that match
     the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -73,7 +74,7 @@ public class SensoresFragment extends Fragment implements SensorEventListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        /*mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         mTemperatureValue  = (TextView) getView().findViewById(R.id.temperaturatxt);
                 if(mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE)!= null)
                 {
@@ -86,35 +87,17 @@ public class SensoresFragment extends Fragment implements SensorEventListener {
 
                     mTemperatureValue.setText("EL SENSOR DE TEMPERATURA NO ESTA DISPONILBE!");
                     isSensorPresent=false;
-                }
+                }*/
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
 
-
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (isSensorPresent) {
-            /*
 
-            hjjj*/
-            /*dadadasdasd*/
-            mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        }
-    }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        if(isSensorPresent) {
-            mSensorManager.unregisterListener(this);
-        }
-    }
 
     /* public void controlador(View view, @Nullable Bundle savedInstanceState) {
         Button entry = (Button) getView().findViewById(R.id.btnCambioTemperatura);
@@ -147,7 +130,17 @@ public class SensoresFragment extends Fragment implements SensorEventListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sensores, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_sensores, container, false);
+        Button btntemperatura =(Button) view.findViewById(R.id.btntemperatura);
+            btntemperatura.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent in =new Intent(getActivity(), TemperaturaActivity.class);
+                    in.putExtra("some","some data");
+                }
+            });
+            return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -168,29 +161,17 @@ public class SensoresFragment extends Fragment implements SensorEventListener {
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
 
 
 
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        mTemperatureValue.setText("La temperatura en grados C° " + event.values[0]);
-    }
+
+
+
+
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
+    public void onClick(View view) {
 
-    }
-
-    @Override
-    public void onDestroy() {
-        mSensorManager = null;
-        mSensor = null;
-        super.onDestroy();
     }
 
     /**
